@@ -45,19 +45,19 @@ public class OTP {
 
         //get master password
         System.out.print("\nPlease provide a master password: ");
-        String master_passwd = sc.next();
-        byte[] password = master_passwd.getBytes();
+        String passwd = sc.next();
+        byte[] password = passwd.getBytes();
 
         //get salts and combine with master password
         encSalt = SecurityFunction.randomNumberGenerator(256);
         macSalt = SecurityFunction.randomNumberGenerator(256);
         byte[] salted_password = Arrays.concatenate(encSalt, password);
 
-        //setup master_passwd file
+        //setup local_auth file
         byte[] hash = SecurityFunction.hash(salted_password);
         byte[] salt_and_hash = Arrays.concatenate(encSalt, hash);
 
-        //write data to master_passwd file
+        //write data to local_auth file
         try (FileOutputStream output = new FileOutputStream(local_auth_string)) {
             output.write(salt_and_hash);
             output.close();
