@@ -63,10 +63,6 @@ public class OTP {
             output.close();
         }
 
-        //generate key kept in memory during the use of the program
-        encKey = SecurityFunction.generateKey(master_passwd, encSalt);
-        macKey = SecurityFunction.generateKey(master_passwd, macSalt);
-
         //get hash for passwd_file and append to file
         byte[] local_auth_data = Files.readAllBytes(local_auth_path);
         byte[] encrypted = SecurityFunction.encrypt(local_auth_data, encKey);
